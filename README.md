@@ -1,0 +1,2 @@
+# OthelloC-
+C# programing class 
