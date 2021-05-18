@@ -53,9 +53,13 @@ public class Othello : MonoBehaviour
 
     public void OnEnter()
     {
-       
+
         OthelloImage.color = Color.gray;
-       iscan_put =  mainScript.SerchChengePieces(vertical,horizontal,(int)PieceStatus);
+
+        if (PieceStatus == Pieces.None)
+        {
+            iscan_put = mainScript.SerchChengePieces(vertical, horizontal, (int)PieceStatus);
+        }       
         Debug.Log(iscan_put);
 
     }

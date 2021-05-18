@@ -51,7 +51,7 @@ public class MainScript : MonoBehaviour
     int UpRight = 0;
     int DownLeft = 0;
     int DownRight = 0;
-    public enum Othello_Order
+    public enum Othello_Order//オセロのターン
     {
         Black = 1,
 
@@ -221,7 +221,7 @@ public class MainScript : MonoBehaviour
                         case 1://間の駒 黒
 
 
-                            if (Up > 0 && clipUp && isbreak == false)
+                            if (Up > 0 && clipUp == false && isbreak == false)
                             {
                                 clipUp = true;
                                 isbreak = true;
@@ -397,7 +397,7 @@ public class MainScript : MonoBehaviour
                         case 2:
 
 
-                            if (Down > 0 && clipDown == false && isbreak == false)
+                            if (Down >=1 && clipDown == false && isbreak == false)
                             {
                                 clipDown = true;
                                 isbreak = true;
@@ -460,7 +460,7 @@ public class MainScript : MonoBehaviour
 
                         case 1:
 
-                            if (Left > 0 && clipLeft == false && isbreak == false)
+                            if (Left >=1 && clipLeft == false && isbreak == false)
                             {
 
                                 clipLeft = true;
@@ -520,7 +520,7 @@ public class MainScript : MonoBehaviour
                         case 2:
 
 
-                            if (Left > 0 && clipLeft == false && isbreak == false)
+                            if (Left >= 1 && clipLeft == false && isbreak == false)
                             {
                                 isbreak = true;
                                 clipLeft = true;
@@ -579,7 +579,7 @@ public class MainScript : MonoBehaviour
 
                         case 1:
 
-                            if (Right > 0 && clipRight == false && isbreak ==false)
+                            if (Right >= 1 && clipRight == false && isbreak ==false)
                             {
                                 clipRight = true;
                                 isbreak = true;
@@ -635,7 +635,7 @@ public class MainScript : MonoBehaviour
                             break;
 
                         case 2:
-                            if (Right > 0 && clipRight == false && isbreak == false)
+                            if (Right >= 1 && clipRight == false && isbreak == false)
                             {
                                 clipRight = true;
                                 isbreak = true;
@@ -694,7 +694,7 @@ public class MainScript : MonoBehaviour
 
                         case 1:
 
-                            if (UpLeft > 0 && clipUpLeft == false && isbreak == false)
+                            if (UpLeft >= 1 && clipUpLeft == false && isbreak == false)
                             {
                                 clipUpLeft = true;
                                 isbreak = true;
@@ -753,7 +753,7 @@ public class MainScript : MonoBehaviour
 
                         case 2:
 
-                            if (UpLeft > 0 && clipUpLeft == false && isbreak == false)
+                            if (UpLeft >= 1 && clipUpLeft == false && isbreak == false)
                             {
                                 clipUpLeft = true;
                                 isbreak = true;
@@ -815,7 +815,7 @@ public class MainScript : MonoBehaviour
 
                         case 1:
 
-                            if (UpRight > 0 && clipUpRight == false && isbreak == false)
+                            if (UpRight >= 1 && clipUpRight == false && isbreak == false)
                             {
                                 clipUpRight = true;
                                 isbreak = true;
@@ -872,7 +872,7 @@ public class MainScript : MonoBehaviour
                         case 2:
 
 
-                            if (UpRight > 0 && clipUpRight == false && isbreak == false)
+                            if (UpRight >= 1 && clipUpRight == false && isbreak == false)
                             {
                                 clipUpRight = true;
                                 isbreak = true;
@@ -919,19 +919,21 @@ public class MainScript : MonoBehaviour
                     switch (OthelloBoard[v + dl, h - dl])
                     {
                         case 0:
-                            if (clipDownLeft == false)
+                            if (clipDownLeft == false && isbreak == false)
                             {
                                 Debug.Log("途中空白が検出されました + 左下方向");
                                 DownLeft = 0;
+                                isbreak = true;
                             }
 
                             break;
 
                         case 1:
 
-                            if (DownLeft > 0 && clipDownLeft == false)
+                            if (DownLeft >= 1 && clipDownLeft == false && isbreak == false)
                             {
                                 clipDownLeft = true;
+                                isbreak = true;
                             }
 
 
@@ -940,7 +942,7 @@ public class MainScript : MonoBehaviour
 
                         case 2:
 
-                            if (clipDownLeft == false)
+                            if (clipDownLeft == false && isbreak == false)
                             {
                                 DownLeft++;
                             }
@@ -964,16 +966,17 @@ public class MainScript : MonoBehaviour
                     switch (OthelloBoard[v + dl, h - dl])
                     {
                         case 0:
-                            if (!clipDownLeft)
+                            if (!clipDownLeft && isbreak ==false)
                             {
                                 Debug.Log("途中空白が検出されました + 左下方向");
                                 DownLeft = 0;
+                                isbreak = true;
                             }
 
                             break;
 
                         case 1:
-                            if (!clipDownLeft)
+                            if (!clipDownLeft && isbreak ==false)
                             {
                                 DownLeft++;
                             }
@@ -983,9 +986,11 @@ public class MainScript : MonoBehaviour
                         case 2:
 
 
-                            if (DownLeft > 0)
+                            if (DownLeft >= 1 && isbreak == false)
                             {
                                 clipDownLeft = true;
+                                isbreak = true;
+                                
                             }
 
 
@@ -1013,6 +1018,7 @@ public class MainScript : MonoBehaviour
 
         }
 
+        isbreak = false;
         //右下方向
         Debug.Log("右下方向");
         for (int dr = 1; dr <= Calculation_RightDown_Length(v, h); dr++)
@@ -1025,19 +1031,22 @@ public class MainScript : MonoBehaviour
                     switch (OthelloBoard[v + dr, h + dr])
                     {
                         case 0:
-                            if (clipDownRight == false)
+                            if (clipDownRight == false && isbreak ==false)
                             {
                                 Debug.Log("途中空白が検出されました + 右下方向");
                                 DownRight = 0;
+                                isbreak = true;
                             }
 
                             break;
 
                         case 1:
 
-                            if (DownRight > 0 && clipDownRight == false)
+                            if (DownRight >= 1 && clipDownRight == false && isbreak ==false)
                             {
                                 clipDownRight = true;
+                                isbreak = true;
+
                             }
 
                             break;
@@ -1045,7 +1054,7 @@ public class MainScript : MonoBehaviour
 
                         case 2:
 
-                            if (clipDownRight == false)
+                            if (clipDownRight == false && isbreak == false) 
                             {
                                 DownRight++;
                             }
@@ -1071,10 +1080,11 @@ public class MainScript : MonoBehaviour
                     {
                         case 0:
 
-                            if (clipDownRight == false)
+                            if (clipDownRight == false && isbreak== false)
                             {
                                 Debug.Log("途中空白が検出されました + 右下方向");
                                 DownRight = 0;
+                                isbreak = true;
                             }
                             break;
 
@@ -1089,9 +1099,10 @@ public class MainScript : MonoBehaviour
 
                         case 2:
 
-                            if (DownRight > 0 && clipDownRight == false)
+                            if (DownRight >= 1 && clipDownRight == false && isbreak ==false)
                             {
                                 clipDownRight = true;
+                                isbreak = true;
                             }
 
                             break;
@@ -1121,7 +1132,7 @@ public class MainScript : MonoBehaviour
 
         }
 
-
+       
 
         //ひっくり返る各方向のマスの色を変える
 
@@ -1242,7 +1253,7 @@ public class MainScript : MonoBehaviour
     }
 
 
-    public void ChangeOthelloBoard(int v,int h,int PieceStatus)
+    public void ChangeOthelloBoard(int v,int h,int PieceStatus)//押した場所に配置する
     {
         
 
