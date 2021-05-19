@@ -60,7 +60,7 @@ public class Othello : MonoBehaviour
         {
             iscan_put = mainScript.SerchChengePieces(vertical, horizontal, (int)PieceStatus);
         }       
-        Debug.Log(iscan_put);
+        Debug.Log("iscan_put"+iscan_put);
 
     }
 
