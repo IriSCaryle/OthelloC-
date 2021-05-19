@@ -24,9 +24,9 @@ public class Othello : MonoBehaviour
     public int horizontal;
 
 
-    public bool isCurrented;
+    public bool isCurrented;//そのコマが選択されているか
 
-    bool iscan_put;
+    bool iscan_put;//ひっくりかえせる駒があるかどうか
 
     public enum Pieces
     {
@@ -51,12 +51,12 @@ public class Othello : MonoBehaviour
         
     }
 
-    public void OnEnter()
+    public void OnEnter()//カーソルが駒を選択しているとき
     {
 
-        OthelloImage.color = Color.gray;
+        OthelloImage.color = Color.gray;//選択した駒を灰色に
 
-        if (PieceStatus == Pieces.None)
+        if (PieceStatus == Pieces.None)//駒に何も置かれていない場合 八方向の挟める駒があるか検索
         {
             iscan_put = mainScript.SerchChengePieces(vertical, horizontal, (int)PieceStatus);
         }       
@@ -64,67 +64,67 @@ public class Othello : MonoBehaviour
 
     }
 
-    public void OnExit()
+    public void OnExit()//カーソルが駒から離れた時
     {
        
-        OthelloImage.color = Color.white;
-        mainScript.SerchCanceled();
+        OthelloImage.color = Color.white;//自身の選択を解除
+        mainScript.SerchCanceled();//挟める駒の選択状態の解除
     }
 
 
     
 
-    public void OnClick()
+    public void OnClick()//駒を選択したとき
     {
 
         switch (PieceStatus)
         {
-            case Pieces.Black:
+            case Pieces.Black://自身が黒の場合
 
                 Debug.Log("現在の色は黒です。配置できません");
 
             break;
 
-            case Pieces.White:
+            case Pieces.White://自身が白の場合
 
                 Debug.Log("現在の色は白です。配置できません");
 
                 break;
 
 
-            case Pieces.None:
+            case Pieces.None://何も置かれていない場合
 
                 
                 
-                if (iscan_put)
+                if (iscan_put)//八方向に置ける駒がある場合
                 {
 
                     Debug.Log("空なので配置します");
-                    switch (mainScript.Order)
+                    switch (mainScript.Order)//ターンを検索　
                     {
-                        case MainScript.Othello_Order.Black:
+                        case MainScript.Othello_Order.Black://黒のターン
 
                             Debug.Log("黒を配置");
-                            OthelloImage.color = Color.white;
-                            OthelloImage.sprite = mainScript.pieceImage[1].sprite;
+                            OthelloImage.color = Color.white;//自身の選択を解除
+                            OthelloImage.sprite = mainScript.pieceImage[1].sprite;//選択していた駒に黒を設置
 
 
 
-                            PieceStatus = Pieces.Black;
-                            mainScript.ChangeOthelloBoard(vertical, horizontal, (int)PieceStatus);
+                            PieceStatus = Pieces.Black;//状態を変更
+                            mainScript.ChangeOthelloBoard(vertical, horizontal, (int)PieceStatus);//挟む駒の状態変更
                             break;
 
 
-                        case MainScript.Othello_Order.White:
+                        case MainScript.Othello_Order.White://白のターン
 
                             Debug.Log("白を配置");
                             OthelloImage.color = Color.white;
-                            OthelloImage.sprite = mainScript.pieceImage[2].sprite;
+                            OthelloImage.sprite = mainScript.pieceImage[2].sprite;//選択していた駒に白を設置
 
 
 
-                            PieceStatus = Pieces.White;
-                            mainScript.ChangeOthelloBoard(vertical, horizontal, (int)PieceStatus);
+                            PieceStatus = Pieces.White;//状態を変更
+                            mainScript.ChangeOthelloBoard(vertical, horizontal, (int)PieceStatus);//挟む駒の状態変更
                             break;
 
 

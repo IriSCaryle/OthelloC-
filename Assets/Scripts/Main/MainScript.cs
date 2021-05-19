@@ -51,6 +51,10 @@ public class MainScript : MonoBehaviour
     int UpRight = 0;
     int DownLeft = 0;
     int DownRight = 0;
+
+
+
+    int interval =4;
     public enum Othello_Order//オセロのターン
     {
         Black = 1,
@@ -105,37 +109,38 @@ public class MainScript : MonoBehaviour
                 switch (OthelloBoard[v, h])
                 {
                     case 0:
-                        ImageBoard[v, h] = Instantiate(pieceImage[0], new Vector2(initPos.transform.position.x + pieceDistance * h, initPos.transform.position.y - pieceDistance * v), Quaternion.identity, Panel.transform);
+                        ImageBoard[v, h] = Instantiate(pieceImage[0], new Vector2(initPos.transform.position.x + pieceDistance * h + interval * h, initPos.transform.position.y - pieceDistance * v - interval * v), Quaternion.identity, Panel.transform);
                         OthelloScriptsArrow[v, h] = ImageBoard[v, h].GetComponent<Othello>();
                         OthelloImageArrow[v, h] = ImageBoard[v, h].GetComponent<Image>();
                         OthelloScriptsArrow[v, h].vertical = v;
                         OthelloScriptsArrow[v, h].horizontal = h;
 
                         OthelloScriptsArrow[v, h].PieceStatus = Othello.Pieces.None;
-
+                      
+                        
                         break;
-
+                  
 
                     case 1:
-                        ImageBoard[v, h] = Instantiate(pieceImage[1], new Vector2(initPos.transform.position.x + pieceDistance * h, initPos.transform.position.y - pieceDistance * v), Quaternion.identity, Panel.transform);
+                        ImageBoard[v, h] = Instantiate(pieceImage[1], new Vector2(initPos.transform.position.x + pieceDistance * h + interval * h, initPos.transform.position.y - pieceDistance * v - interval * v), Quaternion.identity, Panel.transform);
                         OthelloScriptsArrow[v, h] = ImageBoard[v, h].GetComponent<Othello>();
                         OthelloImageArrow[v, h] = ImageBoard[v, h].GetComponent<Image>();
                         OthelloScriptsArrow[v, h].vertical = v;
                         OthelloScriptsArrow[v, h].horizontal = h;
                         OthelloScriptsArrow[v, h].PieceStatus = Othello.Pieces.Black;
-
+                       
                         break;
-
+                    
                     case 2:
-                        ImageBoard[v, h] = Instantiate(pieceImage[2], new Vector2(initPos.transform.position.x + pieceDistance * h, initPos.transform.position.y - pieceDistance * v), Quaternion.identity, Panel.transform);
+                        ImageBoard[v, h] = Instantiate(pieceImage[2], new Vector2(initPos.transform.position.x + pieceDistance * h + interval * h, initPos.transform.position.y - pieceDistance * v - interval * v), Quaternion.identity, Panel.transform);
                         OthelloScriptsArrow[v, h] = ImageBoard[v, h].GetComponent<Othello>();
                         OthelloImageArrow[v, h] = ImageBoard[v, h].GetComponent<Image>();
                         OthelloScriptsArrow[v, h].vertical = v;
                         OthelloScriptsArrow[v, h].horizontal = h;
                         OthelloScriptsArrow[v, h].PieceStatus = Othello.Pieces.White;
-
+                       
                         break;
-
+                   
 
                     default:
 
@@ -203,7 +208,7 @@ public class MainScript : MonoBehaviour
 
         //上方向
         Debug.Log("上方向");
-        for (int u = 1; u <= v - 1; u++)
+        for (int u = 1; u <= v  ; u++)
         {
            
             switch (Order)
@@ -476,7 +481,7 @@ public class MainScript : MonoBehaviour
 
         //左方向
         Debug.Log("左方向");
-        for (int l = 1; l <= h - 1; l++)
+        for (int l = 1; l <= h; l++)
         {
             Debug.Log("座標" + v + "," + (h -l) + "を検索中") ;
             switch (Order)
@@ -1366,7 +1371,7 @@ public class MainScript : MonoBehaviour
 
             for (int a = 0; a < OthelloScriptsArrow.GetLength(1); a++)
             {
-                if (OthelloScriptsArrow[i, a].isCurrented)
+                if (OthelloScriptsArrow[i, a].isCurrented)//配列の選択がされていれば選択を解除
                 {
                     OthelloScriptsArrow[i, a].isCurrented = false;
 
@@ -1386,15 +1391,15 @@ public class MainScript : MonoBehaviour
     }
 
 
-    public void ChangeOthelloBoard(int v,int h,int PieceStatus)//押した場所に配置する
+    public void ChangeOthelloBoard(int v,int h,int PieceStatus)//挟む駒を変更する
     {
         
 
-        OthelloBoard[v, h] = PieceStatus;
+        OthelloBoard[v, h] = PieceStatus;//オセロの配列の状態を画像と同じように反映させる
 
-        if (clipUp)
+        if (clipUp)//挟んでいるかを判定する
         {
-            for (int a = 1; a <= Up; a++)
+            for (int a = 1; a <= Up; a++)//挟んでいる数分繰り返す
             {
                 switch (Order)
                 {
@@ -1667,7 +1672,7 @@ public class MainScript : MonoBehaviour
 
 
 
-    void nowBoardStatus()
+    void nowBoardStatus()//オセロボードの配列の状況を表示
     {
         string boardStatus = "";
         for (int a = 0; a < 8; a++)
@@ -1693,9 +1698,9 @@ public class MainScript : MonoBehaviour
     {
         int Length = 0;
 
-        int finishV = v - 1;//1になるまで何回で小さくなるか
+        int finishV = v ;//1になるまで何回で小さくなるか
 
-        int finishH = h - 1;//1になるまで何回で小さくなるか
+        int finishH = h ;//1になるまで何回で小さくなるか
 
 
         if (finishV < finishH)
@@ -1722,7 +1727,7 @@ public class MainScript : MonoBehaviour
     {
         int Length = 0;
 
-        int finishV = v - 1;//1になるまで何回で小さくなるか
+        int finishV = v;//1になるまで何回で小さくなるか
 
         int finishH = 7 - h;//7になるまで何回で大きくなるか
 
@@ -1751,7 +1756,7 @@ public class MainScript : MonoBehaviour
 
         int finishV = 7 - v;//7になるまで何回で大きくなるか
 
-        int finishH = h - 1; ;//1になるまで何回で小さくなるか
+        int finishH = h ; //1になるまで何回で小さくなるか
 
         if (finishV < finishH)
         {
