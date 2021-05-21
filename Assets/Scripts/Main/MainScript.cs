@@ -54,7 +54,7 @@ public class MainScript : MonoBehaviour
 
 
 
-    int interval =4;
+    int interval = 4;
     public enum Othello_Order//オセロのターン
     {
         Black = 1,
@@ -116,10 +116,10 @@ public class MainScript : MonoBehaviour
                         OthelloScriptsArrow[v, h].horizontal = h;
 
                         OthelloScriptsArrow[v, h].PieceStatus = Othello.Pieces.None;
-                      
-                        
+
+
                         break;
-                  
+
 
                     case 1:
                         ImageBoard[v, h] = Instantiate(pieceImage[1], new Vector2(initPos.transform.position.x + pieceDistance * h + interval * h, initPos.transform.position.y - pieceDistance * v - interval * v), Quaternion.identity, Panel.transform);
@@ -128,9 +128,9 @@ public class MainScript : MonoBehaviour
                         OthelloScriptsArrow[v, h].vertical = v;
                         OthelloScriptsArrow[v, h].horizontal = h;
                         OthelloScriptsArrow[v, h].PieceStatus = Othello.Pieces.Black;
-                       
+
                         break;
-                    
+
                     case 2:
                         ImageBoard[v, h] = Instantiate(pieceImage[2], new Vector2(initPos.transform.position.x + pieceDistance * h + interval * h, initPos.transform.position.y - pieceDistance * v - interval * v), Quaternion.identity, Panel.transform);
                         OthelloScriptsArrow[v, h] = ImageBoard[v, h].GetComponent<Othello>();
@@ -138,9 +138,9 @@ public class MainScript : MonoBehaviour
                         OthelloScriptsArrow[v, h].vertical = v;
                         OthelloScriptsArrow[v, h].horizontal = h;
                         OthelloScriptsArrow[v, h].PieceStatus = Othello.Pieces.White;
-                       
+
                         break;
-                   
+
 
                     default:
 
@@ -178,14 +178,14 @@ public class MainScript : MonoBehaviour
     {
         //各方向のおける数を記録
         //初期化
-         Up = 0;
-         Down = 0;
-         Left = 0;
-         Right = 0;
-         UpLeft = 0;
-         UpRight = 0;
-         DownLeft = 0;
-         DownRight = 0;
+        Up = 0;
+        Down = 0;
+        Left = 0;
+        Right = 0;
+        UpLeft = 0;
+        UpRight = 0;
+        DownLeft = 0;
+        DownRight = 0;
         clipUp = false;
         clipDown = false;
         clipLeft = false;
@@ -195,47 +195,38 @@ public class MainScript : MonoBehaviour
         clipDownLeft = false;
         clipDownRight = false;
 
-
-
         bool isbreak = false;
-
 
         Debug.Log("現在のボードの状況");
 
         nowBoardStatus();
 
-        Debug.Log(v +","+h +"を選択、検索を開始");
+        Debug.Log(v + "," + h + "を選択、検索を開始");
 
         //上方向
         Debug.Log("上方向");
-        for (int u = 1; u <= v  ; u++)
+        for (int u = 1; u <= v; u++)
         {
-           
+
             switch (Order)
             {
-
                 case Othello_Order.Black:
 
                     switch (OthelloBoard[v - u, h])
                     {
                         case 0:
-                            if (clipUp ==false && isbreak == false)
+                            if (clipUp == false && isbreak == false)
                             {
-                                Debug.Log(v+","+h+"途中空白が検出されました + 上方向");
+                                Debug.Log(v + "," + h + "途中空白が検出されました + 上方向");
                                 Up = 0;
                                 isbreak = true;
                             }
-                            
-
                             break;
-
                         case 1://間の駒 黒
-
-
                             if (Up > 0 && clipUp == false && isbreak == false)
                             {
                                 clipUp = true;
-                                
+
                                 isbreak = true;
                                 Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "上方向");
                             }
@@ -247,13 +238,11 @@ public class MainScript : MonoBehaviour
                             }
 
                             break;
-
-
                         case 2://間の駒 白
-                            if (clipUp== false && isbreak == false)
+                            if (clipUp == false && isbreak == false)
                             {
                                 Up++;
-                                Debug.Log(v + "," + h + "対の駒を発見" +"isbreak:"+isbreak +"上方向");
+                                Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "上方向");
                             }
                             break;
 
@@ -262,11 +251,7 @@ public class MainScript : MonoBehaviour
                             Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
-
-
                     }
-
-
                     break;
 
                 case Othello_Order.White:
@@ -274,29 +259,23 @@ public class MainScript : MonoBehaviour
                     switch (OthelloBoard[v - u, h])
                     {
                         case 0:
-
                             if (clipUp == false && isbreak == false)
                             {
-                                
+
                                 Up = 0;
-                                isbreak =true;
+                                isbreak = true;
                                 Debug.Log(v + "," + h + "途中空白が検出されました + 上方向");
                             }
 
                             break;
-
                         case 1://間の駒 黒
-
-                            if (clipUp == false && isbreak ==false)
+                            if (clipUp == false && isbreak == false)
                             {
                                 Up++;
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "上方向");
                             }
                             break;
-
                         case 2://間の駒 白
-
-
                             if (Up > 0 && clipUp == false && isbreak == false)
                             {
                                 clipUp = true;
@@ -317,17 +296,11 @@ public class MainScript : MonoBehaviour
                             Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
-
-
                     }
-
-
                     break;
 
                 default:
-
                     Debug.LogError("例外が発生,駒の数値が間違っています");
-
                     break;
             }
 
@@ -344,16 +317,11 @@ public class MainScript : MonoBehaviour
             Debug.Log("座標" + (v + d) + "," + h + "を検索中");
             switch (Order)
             {
-
                 case Othello_Order.Black:
-
                     Debug.Log("黒のターン");
-
-
                     switch (OthelloBoard[v + d, h])
                     {
                         case 0:
-
                             if (clipDown == false && isbreak == false)
                             {
                                 Down = 0;
@@ -361,30 +329,21 @@ public class MainScript : MonoBehaviour
                                 Debug.Log(v + "," + h + "途中空白が検出されました + 下方向");
                             }
                             break;
-
                         case 1:
-
                             if (Down > 0 && clipDown == false && isbreak == false)
                             {
                                 clipDown = true;
                                 isbreak = true;
                                 Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "下方向");
 
-                            } else if (Down ==0 &&isbreak ==false)
+                            } else if (Down == 0 && isbreak == false)
                             {
                                 Debug.Log(v + "," + h + "途中同じ駒を検出" + "下方向");
-                                
+
                                 isbreak = true;
                             }
-
-
                             break;
-
-
                         case 2:
-
-                            
-
                             if (clipDown == false && isbreak == false)
                             {
                                 Down++;
@@ -392,21 +351,17 @@ public class MainScript : MonoBehaviour
                             }
 
                             break;
-
                         default:
 
                             Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
-
                     }
-
 
                     break;
 
                 case Othello_Order.White:
-
                     Debug.Log("白のターン");
                     switch (OthelloBoard[v + d, h])
                     {
@@ -419,22 +374,17 @@ public class MainScript : MonoBehaviour
                             }
 
                             break;
-
                         case 1:
                             if (clipDown == false && isbreak == false)
                             {
                                 Down++;
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "下方向");
                             }
-                           
+
 
                             break;
-
-
                         case 2:
-
-
-                            if (Down >=1 && clipDown == false && isbreak == false)
+                            if (Down >= 1 && clipDown == false && isbreak == false)
                             {
                                 clipDown = true;
                                 isbreak = true;
@@ -450,20 +400,14 @@ public class MainScript : MonoBehaviour
 
 
                             break;
-
                         default:
 
                             Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
-
-
                     }
 
-
-
                     break;
-
 
                 default:
 
@@ -472,27 +416,21 @@ public class MainScript : MonoBehaviour
                     break;
 
             }
-
-
-
         }
 
         isbreak = false;
-
         //左方向
         Debug.Log("左方向");
         for (int l = 1; l <= h; l++)
         {
-            Debug.Log("座標" + v + "," + (h -l) + "を検索中") ;
+            Debug.Log("座標" + v + "," + (h - l) + "を検索中");
             switch (Order)
             {
-
                 case Othello_Order.Black:
 
                     switch (OthelloBoard[v, h - l])
                     {
                         case 0:
-
                             if (clipLeft == false && isbreak == false)
                             {
                                 Left = 0;
@@ -500,10 +438,8 @@ public class MainScript : MonoBehaviour
                                 Debug.Log(v + "," + h + "途中空白が検出されました + 左方向");
                             }
                             break;
-
                         case 1:
-
-                            if (Left >=1 && clipLeft == false && isbreak == false)
+                            if (Left >= 1 && clipLeft == false && isbreak == false)
                             {
                                 clipLeft = true;
                                 isbreak = true;
@@ -516,11 +452,9 @@ public class MainScript : MonoBehaviour
                                 isbreak = true;
                             }
                             break;
-
-
                         case 2:
 
-                            if (clipLeft == false && isbreak ==false)
+                            if (clipLeft == false && isbreak == false)
                             {
                                 Left++;
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左方向");
@@ -534,11 +468,7 @@ public class MainScript : MonoBehaviour
 
                             break;
 
-
                     }
-
-
-
 
                     break;
 
@@ -555,7 +485,6 @@ public class MainScript : MonoBehaviour
                             }
 
                             break;
-
                         case 1:
                             if (clipLeft == false && isbreak == false)
                             {
@@ -564,8 +493,6 @@ public class MainScript : MonoBehaviour
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左方向");
                             }
                             break;
-
-
                         case 2:
 
 
@@ -583,7 +510,6 @@ public class MainScript : MonoBehaviour
                             }
 
                             break;
-
                         default:
 
                             Debug.LogError("例外が発生,駒の数値が間違っています");
@@ -594,22 +520,14 @@ public class MainScript : MonoBehaviour
                     }
 
                     break;
-
-
                 default:
 
                     Debug.LogError("例外が発生,駒の数値が間違っています");
 
                     break;
-
             }
-
-
-
         }
-
         isbreak = false;
-
         //右方向
         Debug.Log("右方向");
         for (int r = 1; r <= (OthelloBoard.GetLength(0) - 1) - h; r++)
@@ -617,25 +535,19 @@ public class MainScript : MonoBehaviour
             Debug.Log("座標" + v + "," + (h + r) + "を検索中");
             switch (Order)
             {
-
                 case Othello_Order.Black:
-
                     switch (OthelloBoard[v, h + r])
                     {
                         case 0:
-
                             if (clipRight == false && isbreak == false)
                             {
                                 Right = 0;
                                 isbreak = true;
                                 Debug.Log(v + "," + h + "途中空白が検出されました + 右方向");
                             }
-
                             break;
-
                         case 1:
-
-                            if (Right >= 1 && clipRight == false && isbreak ==false)
+                            if (Right >= 1 && clipRight == false && isbreak == false)
                             {
                                 clipRight = true;
                                 isbreak = true;
@@ -647,58 +559,39 @@ public class MainScript : MonoBehaviour
 
                                 isbreak = true;
                             }
-
                             break;
-
-
                         case 2:
-
                             if (clipRight == false && isbreak == false)
                             {
                                 Right++;
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右方向");
                             }
                             break;
-
                         default:
 
                             Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
-
-
-
                     }
-
-
-
-
                     break;
-
                 case Othello_Order.White:
-
                     switch (OthelloBoard[v, h + r])
                     {
                         case 0:
-
                             if (clipRight == false && isbreak == false)
                             {
                                 Right = 0;
                                 isbreak = true;
                                 Debug.Log(v + "," + h + "途中空白が検出されました + 右方向");
                             }
-
                             break;
-
                         case 1:
-
                             if (clipRight == false && isbreak == false)
                             {
                                 Right++;
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右方向");
                             }
                             break;
-
                         case 2:
                             if (Right >= 1 && clipRight == false && isbreak == false)
                             {
@@ -720,25 +613,14 @@ public class MainScript : MonoBehaviour
                             Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
-
-
-
                     }
-
-
                     break;
-
-
                 default:
 
                     Debug.LogError("例外が発生,駒の数値が間違っています");
 
                     break;
-
             }
-
-
-
         }
 
         isbreak = false;
@@ -746,12 +628,10 @@ public class MainScript : MonoBehaviour
         Debug.Log("左上方向");
         for (int ul = 1; ul <= Calculation_LeftUp_Length(v, h); ul++)
         {
-            Debug.Log("座標" + (v- ul) + "," + (h - ul) + "を検索中");
+            Debug.Log("座標" + (v - ul) + "," + (h - ul) + "を検索中");
             switch (Order)
             {
-
                 case Othello_Order.Black:
-
                     switch (OthelloBoard[v - ul, h - ul])
                     {
                         case 0:
@@ -761,11 +641,8 @@ public class MainScript : MonoBehaviour
                                 isbreak = true;
                                 Debug.Log(v + "," + h + "途中空白が検出されました + 左上方向");
                             }
-
                             break;
-
                         case 1:
-
                             if (UpLeft >= 1 && clipUpLeft == false && isbreak == false)
                             {
                                 clipUpLeft = true;
@@ -778,10 +655,7 @@ public class MainScript : MonoBehaviour
 
                                 isbreak = true;
                             }
-
                             break;
-
-
                         case 2:
 
                             if (clipUpLeft == false && isbreak == false)
@@ -828,7 +702,7 @@ public class MainScript : MonoBehaviour
                             {
                                 UpLeft++;
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左上方向");
-                                
+
                             }
                             break;
 
@@ -959,11 +833,11 @@ public class MainScript : MonoBehaviour
 
                         case 1:
 
-                            if (clipUpRight == false && isbreak ==false)
+                            if (clipUpRight == false && isbreak == false)
                             {
                                 UpRight++;
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右上方向");
-                                
+
                             }
                             break;
 
@@ -1080,7 +954,7 @@ public class MainScript : MonoBehaviour
                     switch (OthelloBoard[v + dl, h - dl])
                     {
                         case 0:
-                            if (!clipDownLeft && isbreak ==false)
+                            if (!clipDownLeft && isbreak == false)
                             {
                                 DownLeft = 0;
                                 isbreak = true;
@@ -1090,7 +964,7 @@ public class MainScript : MonoBehaviour
                             break;
 
                         case 1:
-                            if (!clipDownLeft && isbreak ==false)
+                            if (!clipDownLeft && isbreak == false)
                             {
                                 DownLeft++;
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左下方向");
@@ -1153,7 +1027,7 @@ public class MainScript : MonoBehaviour
                     switch (OthelloBoard[v + dr, h + dr])
                     {
                         case 0:
-                            if (clipDownRight == false && isbreak ==false)
+                            if (clipDownRight == false && isbreak == false)
                             {
                                 DownRight = 0;
                                 isbreak = true;
@@ -1164,7 +1038,7 @@ public class MainScript : MonoBehaviour
 
                         case 1:
 
-                            if (DownRight >= 1 && clipDownRight == false && isbreak ==false)
+                            if (DownRight >= 1 && clipDownRight == false && isbreak == false)
                             {
                                 clipDownRight = true;
                                 isbreak = true;
@@ -1183,7 +1057,7 @@ public class MainScript : MonoBehaviour
 
                         case 2:
 
-                            if (clipDownRight == false && isbreak == false) 
+                            if (clipDownRight == false && isbreak == false)
                             {
                                 DownRight++;
                                 Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右下方向");
@@ -1210,7 +1084,7 @@ public class MainScript : MonoBehaviour
                     {
                         case 0:
 
-                            if (clipDownRight == false && isbreak== false)
+                            if (clipDownRight == false && isbreak == false)
                             {
                                 Debug.Log("途中空白が検出されました + 右下方向");
                                 DownRight = 0;
@@ -1230,7 +1104,7 @@ public class MainScript : MonoBehaviour
 
                         case 2:
 
-                            if (DownRight >= 1 && clipDownRight == false && isbreak ==false)
+                            if (DownRight >= 1 && clipDownRight == false && isbreak == false)
                             {
                                 clipDownRight = true;
                                 isbreak = true;
@@ -1270,7 +1144,7 @@ public class MainScript : MonoBehaviour
 
         }
 
-       
+
 
         //ひっくり返る各方向のマスの色を変える
 
@@ -1351,7 +1225,7 @@ public class MainScript : MonoBehaviour
 
         }
 
-        if (clipUp ==false && clipDown == false && clipLeft == false&& clipRight == false && clipUpLeft == false && clipUpRight == false && clipDownLeft == false && clipDownRight ==false)
+        if (clipUp == false && clipDown == false && clipLeft == false && clipRight == false && clipUpLeft == false && clipUpRight == false && clipDownLeft == false && clipDownRight == false)
         {
 
             return false;
@@ -1391,9 +1265,9 @@ public class MainScript : MonoBehaviour
     }
 
 
-    public void ChangeOthelloBoard(int v,int h,int PieceStatus)//挟む駒を変更する
+    public void ChangeOthelloBoard(int v, int h, int PieceStatus)//挟む駒を変更する
     {
-        
+
 
         OthelloBoard[v, h] = PieceStatus;//オセロの配列の状態を画像と同じように反映させる
 
@@ -1422,12 +1296,12 @@ public class MainScript : MonoBehaviour
                         OthelloImageArrow[v - a, h].color = Color.white;
                         OthelloScriptsArrow[v - a, h].isCurrented = false;
 
-                       
+
                         break;
 
 
                 }
-                
+
             }
         }
         if (clipDown)
@@ -1490,7 +1364,7 @@ public class MainScript : MonoBehaviour
 
 
                 }
-               
+
             }
 
         }
@@ -1519,7 +1393,7 @@ public class MainScript : MonoBehaviour
 
 
                 }
-           
+
             }
 
         }
@@ -1550,7 +1424,7 @@ public class MainScript : MonoBehaviour
 
                 }
 
-              
+
             }
 
         }
@@ -1579,7 +1453,7 @@ public class MainScript : MonoBehaviour
 
 
                 }
-              
+
             }
 
         }
@@ -1608,7 +1482,7 @@ public class MainScript : MonoBehaviour
 
 
                 }
-                
+
             }
 
         }
@@ -1638,7 +1512,7 @@ public class MainScript : MonoBehaviour
 
 
                 }
-              
+
             }
 
         }
@@ -1667,6 +1541,7 @@ public class MainScript : MonoBehaviour
 
 
         nowBoardStatus();
+
     }
 
 
@@ -1698,9 +1573,9 @@ public class MainScript : MonoBehaviour
     {
         int Length = 0;
 
-        int finishV = v ;//1になるまで何回で小さくなるか
+        int finishV = v;//1になるまで何回で小さくなるか
 
-        int finishH = h ;//1になるまで何回で小さくなるか
+        int finishH = h;//1になるまで何回で小さくなるか
 
 
         if (finishV < finishH)
@@ -1756,7 +1631,7 @@ public class MainScript : MonoBehaviour
 
         int finishV = 7 - v;//7になるまで何回で大きくなるか
 
-        int finishH = h ; //1になるまで何回で小さくなるか
+        int finishH = h; //1になるまで何回で小さくなるか
 
         if (finishV < finishH)
         {
@@ -1803,6 +1678,47 @@ public class MainScript : MonoBehaviour
 
         //選択位置からの右上のマス数を計算する
 
+    }
+
+
+    public (int, int, int) CheckBoard_PieceNumber()
+    {
+        int none=0;
+
+        int black=0;
+
+        int white=0;
+
+        foreach (int tmp in OthelloBoard)
+        {
+            switch (tmp)
+            {
+                case 0:
+
+                    none++;
+
+                    break;
+
+                case 1:
+
+                    black++;
+
+                    break;
+
+                case 2:
+
+                    white++;
+
+                    break;
+                default:
+
+                    Debug.LogError("未定義の数字が含まれています");
+
+                    break;
+            }
+        }
+
+        return (none, black, white);
 
 
     }
