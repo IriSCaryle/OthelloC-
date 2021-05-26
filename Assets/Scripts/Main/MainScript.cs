@@ -1,10 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 public class MainScript : MonoBehaviour
 {
+
+    public event Action<MainScript> Turn;
+
+
+    [Header("Script")]
+
+    [SerializeField] PieceCounter pieceCounter;
+
+    [SerializeField] AIBot aIBot;
+
     [Header("盤面の一番左上の位置")]
 
     [SerializeField] GameObject initPos;
@@ -34,6 +45,10 @@ public class MainScript : MonoBehaviour
     public Othello_Order Order;
 
 
+    public Othello_Order PlayerTurn;
+
+    public Othello_Order AITurn;
+
 
     bool clipUp;
     bool clipDown;
@@ -55,6 +70,9 @@ public class MainScript : MonoBehaviour
 
 
     int interval = 4;
+
+
+
     public enum Othello_Order//オセロのターン
     {
         Black = 1,
@@ -89,9 +107,62 @@ public class MainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Ordering();//順番決め
         ResetBoard();//盤面のりセット
     }
+    
 
+    public void Ordering()
+    {
+        int rand= UnityEngine.Random.Range(1,2);
+
+        switch (rand)
+        {
+            case 1:
+
+                PlayerTurn = Othello_Order.Black;
+                Debug.Log("プレイヤーは黒です");
+
+                break;
+            case 2:
+
+                PlayerTurn = Othello_Order.White;
+                Debug.Log("プレイヤーは白です");
+
+                break;
+            default:
+
+                Debug.LogError("例外の数字が入力されました");
+
+                break;
+        }
+
+
+        int aiturn = aIBot.CheckTurn();
+
+
+        switch (aiturn)
+        {
+            case 1:
+
+                AITurn = Othello_Order.Black;
+                Debug.Log("CPは黒です");
+                break;
+
+            case 2:
+
+                AITurn = Othello_Order.Black;
+                Debug.Log("CPは白です");
+                break;
+            default:
+
+                Debug.LogError("例外の数字が入力されました");
+
+                break;
+
+        }
+
+    }
 
     public void ResetBoard()
     {
@@ -1152,6 +1223,10 @@ public class MainScript : MonoBehaviour
 
         Debug.Log("ターン" + Order.ToString() + "Up:" + Up + clipUp + "Down:" + Down + clipDown + "Left:" + Left + clipLeft + "Right:" + Right + clipRight + "UpLeft:" + UpLeft + clipUpLeft + "UpRight:" + UpRight + clipUpRight + "DownLeft:" + DownLeft + clipDownLeft + "DownRight:" + DownRight + clipDownRight);
 
+        
+
+
+
         if (clipUp)
         {
             for (int a = 1; a <= Up; a++)
@@ -1252,22 +1327,13 @@ public class MainScript : MonoBehaviour
                     OthelloImageArrow[i, a].color = Color.white;
 
                 }
-
             }
-
-
-
         }
-
-
-
-
     }
 
 
     public void ChangeOthelloBoard(int v, int h, int PieceStatus)//挟む駒を変更する
     {
-
 
         OthelloBoard[v, h] = PieceStatus;//オセロの配列の状態を画像と同じように反映させる
 
@@ -1542,6 +1608,8 @@ public class MainScript : MonoBehaviour
 
         nowBoardStatus();
 
+
+        pieceCounter.CheckOthelloBoard();
     }
 
 
@@ -1562,9 +1630,6 @@ public class MainScript : MonoBehaviour
             Debug.Log("現在の状態");
             Debug.Log(boardStatus);
         }
-
-
-
 
     }
 
@@ -1726,3 +1791,6 @@ public class MainScript : MonoBehaviour
 
 
 }
+
+
+ 

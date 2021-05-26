@@ -7,6 +7,7 @@ public class PieceCounter : MonoBehaviour
 
     [SerializeField] Text text;
     [SerializeField] MainScript main;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,4 +21,19 @@ public class PieceCounter : MonoBehaviour
 
 
     }
+
+   public void CheckOthelloBoard()
+    {
+        int black=0;
+        int white=0;
+        int none= 0;
+
+       (none,black,white) = main.CheckBoard_PieceNumber();
+
+
+        text.text = "黒:" + black + "白:" + white;
+    }
+
+
+
 }
