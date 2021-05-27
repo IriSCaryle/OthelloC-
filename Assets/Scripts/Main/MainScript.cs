@@ -27,7 +27,7 @@ public class MainScript : MonoBehaviour
     public Image[] pieceImage = new Image[3];
 
     [Header("各座標のオセロスクリプト")]
-    [SerializeField] Othello[,] OthelloScriptsArrow = new Othello[8, 8];
+    public Othello[,] OthelloScriptsArrow = new Othello[8, 8];
     [Header("各座標のイメージコンポーネント")]
     [SerializeField] Image[,] OthelloImageArrow = new Image[8, 8];
 
@@ -107,7 +107,13 @@ public class MainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Ordering();//順番決め
+        if (aIBot != null)
+        {
+            Debug.Log("CPU戦です");
+            Ordering();//順番決め
+            
+        }
+
         ResetBoard();//盤面のりセット
     }
     
@@ -122,12 +128,12 @@ public class MainScript : MonoBehaviour
 
                 PlayerTurn = Othello_Order.Black;
                 Debug.Log("プレイヤーは黒です");
-
+                TurnText.text = "プレイヤーのターン";
                 break;
             case 2:
 
                 PlayerTurn = Othello_Order.White;
-                Debug.Log("プレイヤーは白です");
+                TurnText.text = "CPのターン";
 
                 break;
             default:
@@ -147,12 +153,15 @@ public class MainScript : MonoBehaviour
 
                 AITurn = Othello_Order.Black;
                 Debug.Log("CPは黒です");
+                TurnText.text = "CPのターン";
+
                 break;
 
             case 2:
 
                 AITurn = Othello_Order.Black;
                 Debug.Log("CPは白です");
+                TurnText.text = "プレイヤーのターン";
                 break;
             default:
 
@@ -231,7 +240,7 @@ public class MainScript : MonoBehaviour
         Debug.Log(boardTxt);
 
         Order = Othello_Order.Black;
-        TurnText.text = "黒のターン";
+        
 
     }
 
@@ -245,7 +254,7 @@ public class MainScript : MonoBehaviour
 
 
 
-    public bool SerchChengePieces(int v, int h, int nowStatus)//取れる駒を予測する
+    public bool SerchChengePieces(int v, int h)//取れる駒を予測する
     {
         //各方向のおける数を記録
         //初期化
@@ -1349,6 +1358,7 @@ public class MainScript : MonoBehaviour
                         OthelloImageArrow[v - a, h].sprite = pieceImage[1].sprite;
                         Debug.Log("黒に変える");
                         OthelloImageArrow[v - a, h].color = Color.white;
+    
                         OthelloScriptsArrow[v - a, h].isCurrented = false;
 
                         break;
@@ -1588,7 +1598,23 @@ public class MainScript : MonoBehaviour
             case Othello_Order.Black:
 
                 Order = Othello_Order.White;
-                TurnText.text = "白のターン";
+                if (PlayerTurn == Othello_Order.Black)
+                {
+                    aIBot.AITurn();
+                    TurnText.text = "CPのターン";
+                }
+                else if(PlayerTurn == Othello_Order.White)
+                {
+                    TurnText.text = "プレイヤーのターン";
+                }else if(aIBot ==null){
+
+                    TurnText.text = "白のターン";
+
+
+                }
+
+
+                
                 break;
 
 
@@ -1596,8 +1622,19 @@ public class MainScript : MonoBehaviour
             case Othello_Order.White:
 
                 Order = Othello_Order.Black;
-                TurnText.text = "黒のターン";
-
+                if (PlayerTurn == Othello_Order.White)
+                {
+                    aIBot.AITurn();
+                    TurnText.text = "CPのターン";
+                }
+                else if (PlayerTurn == Othello_Order.Black)
+                {
+                    TurnText.text = "プレイヤーのターン";
+                }
+                else if (aIBot == null)
+                {
+                    TurnText.text = "黒のターン";
+                }
                 break;
 
 
