@@ -59,10 +59,34 @@ public class Othello : MonoBehaviour
         if (PieceStatus == Pieces.None)//駒に何も置かれていない場合 八方向の挟める駒があるか検索
         {
             iscan_put = mainScript.SerchChengePieces(vertical, horizontal);
-        }       
-        Debug.Log("iscan_put"+iscan_put);
+            Debug.Log("iscan_put" + iscan_put);
+          
+        }
+        else
+        {
+            Debug.Log("iscan_put" + iscan_put);
+            
+        }
+
+
+       
 
     }
+
+    public bool AIisOnEnter()//AIにbool値を返す確認用
+    {
+        if (PieceStatus == Pieces.None)//駒に何も置かれていない場合 八方向の挟める駒があるか検索
+        {
+            return true;
+        }
+        else
+        {
+            Debug.Log("iscan_put" + iscan_put);
+            return false;
+        }
+    }
+
+
 
     public void OnExit()//カーソルが駒から離れた時
     {
