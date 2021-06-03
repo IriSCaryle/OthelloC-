@@ -50,6 +50,14 @@ public class MainScript : MonoBehaviour
     public Othello_Order AITurn;
 
 
+
+    [Header("勝敗")]
+
+    [SerializeField] GameObject judge;
+
+    [SerializeField] Text judgetext;
+
+
     bool clipUp;
     bool clipDown;
     bool clipLeft;
@@ -107,6 +115,9 @@ public class MainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Reset();
+
+
         ResetBoard();//盤面のりセット
 
 
@@ -132,7 +143,7 @@ public class MainScript : MonoBehaviour
 
                 PlayerTurn = Othello_Order.Black;
                 Debug.Log("先行はプレイヤーです");
-                TurnText.text = "プレイヤーのターン";
+                TurnText.text = "あなたのターン";
                 break;
             case 2:
 
@@ -156,7 +167,7 @@ public class MainScript : MonoBehaviour
 
                 AITurn = Othello_Order.White;
                 Debug.Log("CPは白です");
-                TurnText.text = "プレイヤーのターン";
+                TurnText.text = "あなたのターン";
                 break;
 
             case Othello_Order.White:
@@ -180,6 +191,16 @@ public class MainScript : MonoBehaviour
 
    
     }
+
+    private void Reset()
+    {
+        Application.targetFrameRate = 60;
+
+
+        judge.SetActive(false);
+    }
+
+
 
     public void ResetBoard()
     {
@@ -285,14 +306,12 @@ public class MainScript : MonoBehaviour
 
         bool isbreak = false;
 
-        Debug.Log("現在のボードの状況");
 
-        nowBoardStatus();
 
-        Debug.Log(v + "," + h + "を選択、検索を開始");
+        //Debug.Log(v + "," + h + "を選択、検索を開始");
 
         //上方向
-        Debug.Log("上方向");
+        //Debug.Log("上方向");
         for (int u = 1; u <= v; u++)
         {
 
@@ -305,7 +324,7 @@ public class MainScript : MonoBehaviour
                         case 0:
                             if (clipUp == false && isbreak == false)
                             {
-                             //   Debug.Log(v + "," + h + "途中空白が検出されました + 上方向");
+                             //   //Debug.Log(v + "," + h + "途中空白が検出されました + 上方向");
                                 Up = 0;
                                 isbreak = true;
                             }
@@ -316,11 +335,11 @@ public class MainScript : MonoBehaviour
                                 clipUp = true;
 
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "上方向");
+                              //  //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "上方向");
                             }
                             else if (Up == 0 && isbreak == false)
                             {
-                             //   Debug.Log(v + "," + h + "途中同じ駒を検出" + "上方向");
+                             //   //Debug.Log(v + "," + h + "途中同じ駒を検出" + "上方向");
 
                                 isbreak = true;
                             }
@@ -330,13 +349,13 @@ public class MainScript : MonoBehaviour
                             if (clipUp == false && isbreak == false)
                             {
                                 Up++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "上方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "上方向");
                             }
                             break;
 
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
                     }
@@ -352,7 +371,7 @@ public class MainScript : MonoBehaviour
 
                                 Up = 0;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "途中空白が検出されました + 上方向");
+                              //  //Debug.Log(v + "," + h + "途中空白が検出されました + 上方向");
                             }
 
                             break;
@@ -360,7 +379,7 @@ public class MainScript : MonoBehaviour
                             if (clipUp == false && isbreak == false)
                             {
                                 Up++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "上方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "上方向");
                             }
                             break;
                         case 2://間の駒 白
@@ -368,11 +387,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipUp = true;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "上方向");
+                              //  //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "上方向");
                             }
                             else if (Up == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "上方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "上方向");
 
                                 isbreak = true;
                             }
@@ -381,14 +400,14 @@ public class MainScript : MonoBehaviour
 
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
                     }
                     break;
 
                 default:
-                    Debug.LogError("例外が発生,駒の数値が間違っています");
+                    //Debug.LogError("例外が発生,駒の数値が間違っています");
                     break;
             }
 
@@ -399,10 +418,10 @@ public class MainScript : MonoBehaviour
         isbreak = false;
 
         //下方向
-        Debug.Log("下方向");
+        //Debug.Log("下方向");
         for (int d = 1; d <= (OthelloBoard.GetLength(1) - 1) - v; d++)
         {
-            Debug.Log("座標" + (v + d) + "," + h + "を検索中");
+            //Debug.Log("座標" + (v + d) + "," + h + "を検索中");
             switch (Order)
             {
                 case Othello_Order.Black:
@@ -414,7 +433,7 @@ public class MainScript : MonoBehaviour
                             {
                                 Down = 0;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "途中空白が検出されました + 下方向");
+                              //  //Debug.Log(v + "," + h + "途中空白が検出されました + 下方向");
                             }
                             break;
                         case 1:
@@ -422,11 +441,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipDown = true;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "下方向");
+                              //  //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "下方向");
 
                             } else if (Down == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "下方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "下方向");
 
                                 isbreak = true;
                             }
@@ -435,13 +454,13 @@ public class MainScript : MonoBehaviour
                             if (clipDown == false && isbreak == false)
                             {
                                 Down++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "下方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "下方向");
                             }
 
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -458,7 +477,7 @@ public class MainScript : MonoBehaviour
                             {
                                 Down = 0;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "途中空白が検出されました + 下方向");
+                               // //Debug.Log(v + "," + h + "途中空白が検出されました + 下方向");
                             }
 
                             break;
@@ -466,7 +485,7 @@ public class MainScript : MonoBehaviour
                             if (clipDown == false && isbreak == false)
                             {
                                 Down++;
-                               // Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "下方向");
+                               // //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "下方向");
                             }
 
 
@@ -476,12 +495,12 @@ public class MainScript : MonoBehaviour
                             {
                                 clipDown = true;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "下方向");
+                               // //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "下方向");
 
                             }
                             else if (Down == 0 && isbreak == false)
                             {
-                               // Debug.Log(v + "," + h + "途中同じ駒を検出" + "下方向");
+                               // //Debug.Log(v + "," + h + "途中同じ駒を検出" + "下方向");
 
                                 isbreak = true;
                             }
@@ -490,7 +509,7 @@ public class MainScript : MonoBehaviour
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
                     }
@@ -499,7 +518,7 @@ public class MainScript : MonoBehaviour
 
                 default:
 
-                    Debug.LogError("例外が発生,駒の数値が間違っています");
+                    //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                     break;
 
@@ -508,10 +527,10 @@ public class MainScript : MonoBehaviour
 
         isbreak = false;
         //左方向
-        Debug.Log("左方向");
+        //Debug.Log("左方向");
         for (int l = 1; l <= h; l++)
         {
-            Debug.Log("座標" + v + "," + (h - l) + "を検索中");
+            //Debug.Log("座標" + v + "," + (h - l) + "を検索中");
             switch (Order)
             {
                 case Othello_Order.Black:
@@ -523,7 +542,7 @@ public class MainScript : MonoBehaviour
                             {
                                 Left = 0;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "途中空白が検出されました + 左方向");
+                               // //Debug.Log(v + "," + h + "途中空白が検出されました + 左方向");
                             }
                             break;
                         case 1:
@@ -531,11 +550,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipLeft = true;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左方向");
+                              //  //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左方向");
                             }
                             else if (Left == 0 && isbreak == false)
                             {
-                               // Debug.Log(v + "," + h + "途中同じ駒を検出" + "左方向");
+                               // //Debug.Log(v + "," + h + "途中同じ駒を検出" + "左方向");
 
                                 isbreak = true;
                             }
@@ -545,14 +564,14 @@ public class MainScript : MonoBehaviour
                             if (clipLeft == false && isbreak == false)
                             {
                                 Left++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左方向");
                             }
 
                             break;
 
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -569,7 +588,7 @@ public class MainScript : MonoBehaviour
                             {
                                 Left = 0;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "途中空白が検出されました + 左方向");
+                               // //Debug.Log(v + "," + h + "途中空白が検出されました + 左方向");
                             }
 
                             break;
@@ -578,7 +597,7 @@ public class MainScript : MonoBehaviour
                             {
 
                                 Left++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左方向");
                             }
                             break;
                         case 2:
@@ -588,11 +607,11 @@ public class MainScript : MonoBehaviour
                             {
                                 isbreak = true;
                                 clipLeft = true;
-                               // Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左方向");
+                               // //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左方向");
                             }
                             else if (Left == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "左方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "左方向");
 
                                 isbreak = true;
                             }
@@ -600,7 +619,7 @@ public class MainScript : MonoBehaviour
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -610,17 +629,17 @@ public class MainScript : MonoBehaviour
                     break;
                 default:
 
-                    Debug.LogError("例外が発生,駒の数値が間違っています");
+                    //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                     break;
             }
         }
         isbreak = false;
         //右方向
-        Debug.Log("右方向");
+        //Debug.Log("右方向");
         for (int r = 1; r <= (OthelloBoard.GetLength(0) - 1) - h; r++)
         {
-            Debug.Log("座標" + v + "," + (h + r) + "を検索中");
+            //Debug.Log("座標" + v + "," + (h + r) + "を検索中");
             switch (Order)
             {
                 case Othello_Order.Black:
@@ -631,7 +650,7 @@ public class MainScript : MonoBehaviour
                             {
                                 Right = 0;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "途中空白が検出されました + 右方向");
+                              //  //Debug.Log(v + "," + h + "途中空白が検出されました + 右方向");
                             }
                             break;
                         case 1:
@@ -639,11 +658,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipRight = true;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右方向");
+                               // //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右方向");
                             }
                             else if (Right == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "右方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "右方向");
 
                                 isbreak = true;
                             }
@@ -652,12 +671,12 @@ public class MainScript : MonoBehaviour
                             if (clipRight == false && isbreak == false)
                             {
                                 Right++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右方向");
                             }
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
                     }
@@ -670,14 +689,14 @@ public class MainScript : MonoBehaviour
                             {
                                 Right = 0;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "途中空白が検出されました + 右方向");
+                               // //Debug.Log(v + "," + h + "途中空白が検出されました + 右方向");
                             }
                             break;
                         case 1:
                             if (clipRight == false && isbreak == false)
                             {
                                 Right++;
-                               // Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右方向");
+                               // //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右方向");
                             }
                             break;
                         case 2:
@@ -685,11 +704,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipRight = true;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右方向");
+                               // //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右方向");
                             }
                             else if (Right == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "右方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "右方向");
 
                                 isbreak = true;
                             }
@@ -698,14 +717,14 @@ public class MainScript : MonoBehaviour
 
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
                     }
                     break;
                 default:
 
-                    Debug.LogError("例外が発生,駒の数値が間違っています");
+                    //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                     break;
             }
@@ -713,10 +732,10 @@ public class MainScript : MonoBehaviour
 
         isbreak = false;
         //左上方向
-        Debug.Log("左上方向");
+        //Debug.Log("左上方向");
         for (int ul = 1; ul <= Calculation_LeftUp_Length(v, h); ul++)
         {
-            Debug.Log("座標" + (v - ul) + "," + (h - ul) + "を検索中");
+            //Debug.Log("座標" + (v - ul) + "," + (h - ul) + "を検索中");
             switch (Order)
             {
                 case Othello_Order.Black:
@@ -727,7 +746,7 @@ public class MainScript : MonoBehaviour
                             {
                                 UpLeft = 0;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "途中空白が検出されました + 左上方向");
+                               // //Debug.Log(v + "," + h + "途中空白が検出されました + 左上方向");
                             }
                             break;
                         case 1:
@@ -735,11 +754,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipUpLeft = true;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左上方向");
+                              //  //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左上方向");
                             }
                             else if (UpLeft == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "左上方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "左上方向");
 
                                 isbreak = true;
                             }
@@ -749,13 +768,13 @@ public class MainScript : MonoBehaviour
                             if (clipUpLeft == false && isbreak == false)
                             {
                                 UpLeft++;
-                              // Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左上方向");
+                              // //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左上方向");
                             }
 
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -778,7 +797,7 @@ public class MainScript : MonoBehaviour
                             {
                                 UpLeft = 0;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "途中空白が検出されました + 左上方向");
+                              //  //Debug.Log(v + "," + h + "途中空白が検出されました + 左上方向");
                             }
 
 
@@ -789,7 +808,7 @@ public class MainScript : MonoBehaviour
                             if (clipUpRight == false && isbreak == false)
                             {
                                 UpLeft++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左上方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左上方向");
 
                             }
                             break;
@@ -801,11 +820,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipUpLeft = true;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左上方向");
+                               // //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左上方向");
                             }
                             else if (UpLeft == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "左上方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "左上方向");
 
                                 isbreak = true;
                             }
@@ -815,7 +834,7 @@ public class MainScript : MonoBehaviour
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -829,7 +848,7 @@ public class MainScript : MonoBehaviour
 
                 default:
 
-                    Debug.LogError("例外が発生,駒の数値が間違っています");
+                    //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                     break;
 
@@ -842,10 +861,10 @@ public class MainScript : MonoBehaviour
         isbreak = false;
 
         //右上方向
-        Debug.Log("右上方向");
+        //Debug.Log("右上方向");
         for (int ur = 1; ur <= Calculation_RightUp_Length(v, h); ur++)
         {
-            Debug.Log("座標" + (v - ur) + "," + (h + ur) + "を検索中");
+            //Debug.Log("座標" + (v - ur) + "," + (h + ur) + "を検索中");
             switch (Order)
             {
 
@@ -860,7 +879,7 @@ public class MainScript : MonoBehaviour
                             {
                                 UpRight = 0;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "途中空白が検出されました + 右上方向");
+                               // //Debug.Log(v + "," + h + "途中空白が検出されました + 右上方向");
                             }
                             break;
 
@@ -870,11 +889,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipUpRight = true;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右上方向");
+                              //  //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右上方向");
                             }
                             else if (UpRight == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "右上方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "右上方向");
 
                                 isbreak = true;
                             }
@@ -888,12 +907,12 @@ public class MainScript : MonoBehaviour
                             if (clipUpRight == false && isbreak == false)
                             {
                                 UpRight++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右上方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右上方向");
                             }
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -914,7 +933,7 @@ public class MainScript : MonoBehaviour
                             {
                                 UpRight = 0;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "途中空白が検出されました + 右上方向");
+                               // //Debug.Log(v + "," + h + "途中空白が検出されました + 右上方向");
                             }
 
                             break;
@@ -924,7 +943,7 @@ public class MainScript : MonoBehaviour
                             if (clipUpRight == false && isbreak == false)
                             {
                                 UpRight++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右上方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右上方向");
 
                             }
                             break;
@@ -937,11 +956,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipUpRight = true;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右上方向");
+                               // //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右上方向");
                             }
                             else if (UpRight == 0 && isbreak == false)
                             {
-                               // Debug.Log(v + "," + h + "途中同じ駒を検出" + "右上方向");
+                               // //Debug.Log(v + "," + h + "途中同じ駒を検出" + "右上方向");
 
                                 isbreak = true;
                             }
@@ -950,7 +969,7 @@ public class MainScript : MonoBehaviour
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -962,7 +981,7 @@ public class MainScript : MonoBehaviour
 
                 default:
 
-                    Debug.LogError("例外が発生,駒の数値が間違っています");
+                    //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                     break;
 
@@ -975,10 +994,10 @@ public class MainScript : MonoBehaviour
         isbreak = false;
 
         //左下方向
-        Debug.Log("左下方向");
+        //Debug.Log("左下方向");
         for (int dl = 1; dl <= Calculation_LeftDown_Length(v, h); dl++)
         {
-            Debug.Log("座標" + (v + dl) + "," + (h - dl) + "を検索中");
+            //Debug.Log("座標" + (v + dl) + "," + (h - dl) + "を検索中");
             switch (Order)
             {
 
@@ -991,7 +1010,7 @@ public class MainScript : MonoBehaviour
                             {
                                 DownLeft = 0;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "途中空白が検出されました + 左下方向");
+                              //  //Debug.Log(v + "," + h + "途中空白が検出されました + 左下方向");
                             }
 
                             break;
@@ -1002,11 +1021,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipDownLeft = true;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左下方向");
+                              //  //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左下方向");
                             }
                             else if (DownLeft == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "左下方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "左下方向");
 
                                 isbreak = true;
                             }
@@ -1020,12 +1039,12 @@ public class MainScript : MonoBehaviour
                             if (clipDownLeft == false && isbreak == false)
                             {
                                 DownLeft++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左下方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左下方向");
                             }
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -1046,7 +1065,7 @@ public class MainScript : MonoBehaviour
                             {
                                 DownLeft = 0;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "途中空白が検出されました + 左下方向");
+                              //  //Debug.Log(v + "," + h + "途中空白が検出されました + 左下方向");
                             }
 
                             break;
@@ -1055,7 +1074,7 @@ public class MainScript : MonoBehaviour
                             if (!clipDownLeft && isbreak == false)
                             {
                                 DownLeft++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左下方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "左下方向");
                             }
                             break;
 
@@ -1067,12 +1086,12 @@ public class MainScript : MonoBehaviour
                             {
                                 clipDownLeft = true;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左下方向");
+                              //  //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "左下方向");
 
                             }
                             else if (DownLeft == 0 && isbreak == false)
                             {
-                               // Debug.Log(v + "," + h + "途中同じ駒を検出" + "左下方向");
+                               // //Debug.Log(v + "," + h + "途中同じ駒を検出" + "左下方向");
 
                                 isbreak = true;
                             }
@@ -1082,7 +1101,7 @@ public class MainScript : MonoBehaviour
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -1092,7 +1111,7 @@ public class MainScript : MonoBehaviour
 
                 default:
 
-                    Debug.LogError("例外が発生,駒の数値が間違っています");
+                    //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                     break;
 
@@ -1104,10 +1123,10 @@ public class MainScript : MonoBehaviour
 
         isbreak = false;
         //右下方向
-        Debug.Log("右下方向");
+        //Debug.Log("右下方向");
         for (int dr = 1; dr <= Calculation_RightDown_Length(v, h); dr++)
         {
-            Debug.Log("座標" + (v + dr) + "," + (h + dr) + "を検索中");
+            //Debug.Log("座標" + (v + dr) + "," + (h + dr) + "を検索中");
             switch (Order)
             {
 
@@ -1119,7 +1138,7 @@ public class MainScript : MonoBehaviour
                             {
                                 DownRight = 0;
                                 isbreak = true;
-                              //  Debug.Log(v + "," + h + "途中空白が検出されました + 右下方向");
+                              //  //Debug.Log(v + "," + h + "途中空白が検出されました + 右下方向");
                             }
 
                             break;
@@ -1130,12 +1149,12 @@ public class MainScript : MonoBehaviour
                             {
                                 clipDownRight = true;
                                 isbreak = true;
-                               // Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右下方向");
+                               // //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右下方向");
 
                             }
                             else if (DownRight == 0 && isbreak == false)
                             {
-                              //  Debug.Log(v + "," + h + "途中同じ駒を検出" + "右下方向");
+                              //  //Debug.Log(v + "," + h + "途中同じ駒を検出" + "右下方向");
 
                                 isbreak = true;
                             }
@@ -1148,12 +1167,12 @@ public class MainScript : MonoBehaviour
                             if (clipDownRight == false && isbreak == false)
                             {
                                 DownRight++;
-                             //   Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右下方向");
+                             //   //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右下方向");
                             }
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -1174,7 +1193,7 @@ public class MainScript : MonoBehaviour
 
                             if (clipDownRight == false && isbreak == false)
                             {
-                              //  Debug.Log("途中空白が検出されました + 右下方向");
+                              //  //Debug.Log("途中空白が検出されました + 右下方向");
                                 DownRight = 0;
                                 isbreak = true;
                             }
@@ -1184,7 +1203,7 @@ public class MainScript : MonoBehaviour
                             if (clipDownRight == false)
                             {
                                 DownRight++;
-                              //  Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右下方向");
+                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "右下方向");
                             }
 
                             break;
@@ -1196,11 +1215,11 @@ public class MainScript : MonoBehaviour
                             {
                                 clipDownRight = true;
                                 isbreak = true;
-                             //   Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右下方向");
+                             //   //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "右下方向");
                             }
                             else if (DownRight == 0 && isbreak == false)
                             {
-                             //   Debug.Log(v + "," + h + "途中同じ駒を検出" + "右下方向");
+                             //   //Debug.Log(v + "," + h + "途中同じ駒を検出" + "右下方向");
 
                                 isbreak = true;
                             }
@@ -1208,7 +1227,7 @@ public class MainScript : MonoBehaviour
                             break;
                         default:
 
-                            Debug.LogError("例外が発生,駒の数値が間違っています");
+                            //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                             break;
 
@@ -1222,7 +1241,7 @@ public class MainScript : MonoBehaviour
 
                 default:
 
-                    Debug.LogError("例外が発生,駒の数値が間違っています");
+                    //Debug.LogError("例外が発生,駒の数値が間違っています");
 
                     break;
 
@@ -1236,7 +1255,7 @@ public class MainScript : MonoBehaviour
 
         //ひっくり返る各方向のマスの色を変える
 
-        Debug.Log("座標" + v + "," + h);
+        //Debug.Log("座標" + v + "," + h);
 
         Debug.Log("ターン" + Order.ToString() + "Up:" + Up + clipUp + "Down:" + Down + clipDown + "Left:" + Left + clipLeft + "Right:" + Right + clipRight + "UpLeft:" + UpLeft + clipUpLeft + "UpRight:" + UpRight + clipUpRight + "DownLeft:" + DownLeft + clipDownLeft + "DownRight:" + DownRight + clipDownRight);
 
@@ -1614,7 +1633,7 @@ public class MainScript : MonoBehaviour
                 }
                 else if(PlayerTurn == Othello_Order.White)
                 {
-                    TurnText.text = "プレイヤーのターン";
+                    TurnText.text = "あなたのターン";
                 }else if(aIBot ==null){
 
                     TurnText.text = "白のターン";
@@ -1639,7 +1658,7 @@ public class MainScript : MonoBehaviour
                 }
                 else if (PlayerTurn == Othello_Order.Black)
                 {
-                    TurnText.text = "プレイヤーのターン";
+                    TurnText.text = "あなたのターン";
                 }
                 else if (aIBot == null)
                 {
@@ -1657,6 +1676,12 @@ public class MainScript : MonoBehaviour
 
 
         pieceCounter.CheckOthelloBoard();
+
+
+        Pass();
+
+
+        JudgeWinorlose();
     }
 
 
@@ -1675,26 +1700,111 @@ public class MainScript : MonoBehaviour
         if (none == 0)
         {
             isJudged = true;
-
             Debug.Log("通知:全ての盤面が埋まったため 終了します");
 
-        }else if (black == 0)
+            if (black < white)
+            {
+                Debug.Log("白の勝ち");
+                switch (PlayerTurn)
+                {
+                    case Othello_Order.Black:
+
+                        judgetext.text = "CPの勝ち";
+
+                        judge.SetActive(true);
+
+                        break;
+                    case Othello_Order.White:
+
+                        judgetext.text = "あなたの勝ち";
+
+                        judge.SetActive(true);
+
+                        break;
+                }
+                
+
+            }
+            else
+            {
+                Debug.Log("黒の勝ち");
+
+                switch (PlayerTurn)
+                {
+                    case Othello_Order.Black:
+
+                        judgetext.text = "あなたの勝ち";
+
+                        judge.SetActive(true);
+
+                        break;
+                    case Othello_Order.White:
+
+                        judgetext.text = "CPの勝ち";
+
+                        judge.SetActive(true);
+
+                        break;
+                }
+
+            }
+
+        }
+        else if (black == 0)
         {
             isJudged = true;
             Debug.Log("通知:黒がなくなったため 終了します");
+            Debug.Log("白の勝ち");
+            switch (PlayerTurn)
+            {
+                case Othello_Order.Black:
+
+                    judgetext.text = "CPの勝ち";
+
+                    judge.SetActive(true);
+
+                    break;
+                case Othello_Order.White:
+
+                    judgetext.text = "あなたの勝ち";
+
+                    judge.SetActive(true);
+
+                    break;
+            }
         }
         else if (white == 0)
         {
             isJudged = true;
-            Debug.Log("白がなくなったため 終了します");
+            Debug.Log("通知:白がなくなったため 終了します");
+            Debug.Log("黒の勝ち");
+
+            switch (PlayerTurn)
+            {
+                case Othello_Order.Black:
+
+                    judgetext.text = "あなたの勝ち";
+
+                    judge.SetActive(true);
+
+                    break;
+                case Othello_Order.White:
+
+                    judgetext.text = "CPの勝ち";
+
+                    judge.SetActive(true);
+
+                    break;
+            }
         }
         else
         {
+            Debug.Log("通知:勝敗は決まっていません");
         }
 
 
 
-        //作業途中
+        
 
     }
 
@@ -1871,7 +1981,93 @@ public class MainScript : MonoBehaviour
 
     }
 
+    void Pass()
+    {
+        if (PlayerTurn == Order)
+        {
 
+            Debug.Log("置けないターンか検証します");
+
+            switch (PlayerTurn)
+            {
+                case Othello_Order.Black:
+
+
+                    if (SerchMinePieces(0) == false)
+                    {
+                        Debug.Log("パス");
+                        Order = Othello_Order.White;
+                        TurnText.text = "CPのターン";
+                        aIBot.AITurn();
+                    }
+                    break;
+
+
+                case Othello_Order.White:
+
+
+                    if (SerchMinePieces(0) == false)
+                    {
+                        Debug.Log("パス");
+                        Order = Othello_Order.Black;
+                        TurnText.text = "CPのターン";
+                        aIBot.AITurn();
+                    }
+
+                    break;
+
+
+            }
+        }
+    }
+
+
+    bool SerchMinePieces(int x)
+    {
+
+        int[,] tmp = OthelloBoard;
+
+        int dim = 0;
+
+
+        List<int[]> MyPiece = new List<int[]>();
+
+        bool isPut= false;
+       
+            for (int v = 0; v < tmp.GetLength(0); v++)
+            {
+                for (int h = 0; h < tmp.GetLength(1); h++)
+                {
+                    if (tmp[v, h] == x)
+                    {
+                        MyPiece.Add(new int[2]);
+
+                        MyPiece[dim][0] = v;
+
+                        MyPiece[dim][1] = h;
+
+                        dim++;
+                    }
+
+                }
+            }
+
+
+        for (int i = 0; i < MyPiece.Count; i++)
+        {
+            isPut = SerchChengePieces(MyPiece[i][0], MyPiece[i][1]);
+
+            if (isPut)
+            {
+                break;
+            }
+
+        }
+
+        return isPut;
+        
+
+    }
 
 }
 
