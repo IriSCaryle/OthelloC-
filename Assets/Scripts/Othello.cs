@@ -23,6 +23,12 @@ public class Othello : MonoBehaviour
     [Header("横の位置")]
     public int horizontal;
 
+    [Header("AudioClip")]
+    [SerializeField] AudioClip ClickClip;
+    [SerializeField] AudioClip SelectClip;
+
+    [SerializeField] AudioSource audiosource;
+
 
     public bool isCurrented;//そのコマが選択されているか
 
@@ -55,7 +61,8 @@ public class Othello : MonoBehaviour
     {
 
         OthelloImage.color = Color.gray;//選択した駒を灰色に
-
+        audiosource.clip = SelectClip;
+        audiosource.Play();
         if (PieceStatus == Pieces.None)//駒に何も置かれていない場合 八方向の挟める駒があるか検索
         {
             iscan_put = mainScript.SerchChengePieces(vertical, horizontal);
@@ -132,7 +139,8 @@ public class Othello : MonoBehaviour
                             OthelloImage.color = Color.white;//自身の選択を解除
                             OthelloImage.sprite = mainScript.pieceImage[1].sprite;//選択していた駒に黒を設置
 
-
+                            audiosource.clip = ClickClip;
+                            audiosource.Play();
 
                             PieceStatus = Pieces.Black;//状態を変更
                             mainScript.ChangeOthelloBoard(vertical, horizontal, (int)PieceStatus);//挟む駒の状態変更
@@ -145,7 +153,8 @@ public class Othello : MonoBehaviour
                             OthelloImage.color = Color.white;
                             OthelloImage.sprite = mainScript.pieceImage[2].sprite;//選択していた駒に白を設置
 
-
+                            audiosource.clip = ClickClip;
+                            audiosource.Play();
 
                             PieceStatus = Pieces.White;//状態を変更
                             mainScript.ChangeOthelloBoard(vertical, horizontal, (int)PieceStatus);//挟む駒の状態変更

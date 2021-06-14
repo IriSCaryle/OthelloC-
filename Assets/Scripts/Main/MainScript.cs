@@ -324,7 +324,7 @@ public class MainScript : MonoBehaviour
                         case 0:
                             if (clipUp == false && isbreak == false)
                             {
-                             //   //Debug.Log(v + "," + h + "途中空白が検出されました + 上方向");
+                            // Debug.Log(v + "," + h + "途中空白が検出されました + 上方向");
                                 Up = 0;
                                 isbreak = true;
                             }
@@ -335,11 +335,11 @@ public class MainScript : MonoBehaviour
                                 clipUp = true;
 
                                 isbreak = true;
-                              //  //Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "上方向");
+                             // Debug.Log(v + "," + h + "同じ駒を検出" + "isbreak:" + isbreak + "上方向");
                             }
                             else if (Up == 0 && isbreak == false)
                             {
-                             //   //Debug.Log(v + "," + h + "途中同じ駒を検出" + "上方向");
+                             //Debug.Log(v + "," + h + "途中同じ駒を検出" + "上方向");
 
                                 isbreak = true;
                             }
@@ -349,7 +349,7 @@ public class MainScript : MonoBehaviour
                             if (clipUp == false && isbreak == false)
                             {
                                 Up++;
-                              //  //Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "上方向");
+                            // Debug.Log(v + "," + h + "対の駒を発見" + "isbreak:" + isbreak + "上方向");
                             }
                             break;
 
